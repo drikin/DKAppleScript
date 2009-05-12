@@ -1,3 +1,4 @@
+-- this method of minimize function require application to supporting scripting function
 on minimize_all(theApplication)
 	tell application theApplication
 		repeat with theWindow in windows
@@ -12,4 +13,4 @@ on minimize_all(theApplication)
 	end tell
 end minimize_all
 
--- minimize_all("Safari")
+minimize_all("Mail")
