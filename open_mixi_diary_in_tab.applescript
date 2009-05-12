@@ -32,19 +32,20 @@ tell application "Safari"
 		
 		set i to START_POSITION
 		set c to MAX_VISIT
-		repeat until c < 1 or i > link_count
+		set AppleScript's text item delimiters to "?"
+		repeat until c < 1 or i > link_count - 1
 			set this_URL to (do JavaScript "document.links[" & (i as string) & "]" in document 1)
 			set visit to (do JavaScript "document.defaultView.getComputedStyle(document.links[" & (i as string) & "], null).getPropertyValue('color')" in document 1)
 			set i to i + 1
 			if visit ­ VISITED_COLOR then
-				set AppleScript's text item delimiters to "?"
 				if (text item 1 of the this_URL) = BASE_URL then
 					set the end of the target_links to this_URL
 					set c to c - 1
 				end if
-				set AppleScript's text item delimiters to ""
 			end if
 		end repeat
+		set AppleScript's text item delimiters to ""
+		display dialog target_links
 		
 		if the target_links is {} then
 			error "There are no links"
