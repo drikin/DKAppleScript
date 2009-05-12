@@ -1,4 +1,5 @@
-property MAX : 10
+property MAX_VISIT : 10
+property VISITED_COLOR : "rgb(102, 102, 102)"
 property SITE_URL : "http://61.194.39.44/~inu/link/koinu.shtml"
 
 tell application "Safari"
@@ -24,22 +25,29 @@ tell application "Safari"
 		set AppleScript's text item delimiters to ""
 		
 		set the target_links to {}
-		if the link_count < MAX then
-			set MAX to link_count
+		if the link_count < MAX_VISIT then
+			set MAX_VISIT to link_count
 		end if
-		repeat with i from 4 to MAX + 3
+		
+		-- start position is 4 at InuLink
+		set i to 4
+		set c to MAX_VISIT
+		repeat until c < 1
 			set this_URL to (do JavaScript "document.links[" & (i as string) & "]" in document 1)
-			--set this_URL to the parent_URL & this_URL
-			
-			-- specific InuLink: remove redirect link 
-			set AppleScript's text item delimiters to "?"
-			if (count text item of this_URL) > 2 then
-				set the this_URL to ((text items 2 thru -1 of the this_URL) as string) & "/"
+			set visit to (do JavaScript "document.defaultView.getComputedStyle(document.links[" & (i as string) & "], null).getPropertyValue('color')" in document 1)
+			set i to i + 1
+			if visit ­ VISITED_COLOR then
+				-- specific InuLink: remove redirect link 
+				set AppleScript's text item delimiters to "?"
+				if (count text item of this_URL) > 2 then
+					set the this_URL to ((text items 2 thru -1 of the this_URL) as string) & "/"
+				end if
+				set AppleScript's text item delimiters to ""
+				-- end specific InuLink
+				
+				set the end of the target_links to this_URL
+				set c to c - 1
 			end if
-			set AppleScript's text item delimiters to ""
-			-- end specific InuLink
-			
-			set the end of the target_links to this_URL
 		end repeat
 		
 		if the target_links is {} then
@@ -50,7 +58,7 @@ tell application "Safari"
 		repeat with i from 1 to number of items in the target_links
 			set the target_URL to item i of the target_links
 			my new_tab()
-			set URL of document 1 to target_URL
+			set URL of document 1 of application "Safari" to target_URL
 		end repeat
 		
 	on error the error_message number the error_number
