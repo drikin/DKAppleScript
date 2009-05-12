@@ -1,4 +1,5 @@
 property MAX_VISIT : 10
+property START_POSITION : 4
 property VISITED_COLOR : "rgb(102, 102, 102)"
 property SITE_URL : "http://61.194.39.44/~inu/link/koinu.shtml"
 
@@ -30,7 +31,7 @@ tell application "Safari"
 		end if
 		
 		-- start position is 4 at InuLink
-		set i to 4
+		set i to START_POSITION
 		set c to MAX_VISIT
 		repeat until c < 1
 			set this_URL to (do JavaScript "document.links[" & (i as string) & "]" in document 1)

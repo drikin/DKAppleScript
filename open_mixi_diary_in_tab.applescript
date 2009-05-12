@@ -1,5 +1,6 @@
 property MAX_VISIT : 10
-property START_POSITION : 0
+property START_POSITION : 30
+property END_POSITION : 150
 property VISITED_COLOR : "rgb(153, 102, 153)"
 property SITE_URL : "http://mixi.jp/new_friend_diary.pl"
 property BASE_URL : "http://mixi.jp/view_diary.pl"
@@ -7,11 +8,9 @@ property BASE_URL : "http://mixi.jp/view_diary.pl"
 tell application "Safari"
 	activate
 	try
-		-- open InuLink
 		my new_window()
 		set URL of document 1 to SITE_URL
 		my page_loaded(10)
-		-- end open InuLink
 		
 		set the link_count to (do JavaScript "document.links.length" in document 1)
 		if the link_count is 0 then
@@ -31,7 +30,6 @@ tell application "Safari"
 			set MAX_VISIT to link_count
 		end if
 		
-		-- start position is 4 at InuLink
 		set i to START_POSITION
 		set c to MAX_VISIT
 		repeat until c < 1 or i > link_count
