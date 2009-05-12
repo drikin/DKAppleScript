@@ -45,7 +45,6 @@ tell application "Safari"
 			end if
 		end repeat
 		set AppleScript's text item delimiters to ""
-		display dialog target_links
 		
 		if the target_links is {} then
 			error "There are no links"
