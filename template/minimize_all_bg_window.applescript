@@ -19,8 +19,6 @@ on minimize_all(theApplication)
 		tell application "System Events"
 			keystroke "`" using {command down}
 			keystroke "m" using {command down, option down}
-			keystroke "`" using {command down}
-			keystroke "m" using {command down}
 		end tell
 	end try
 end minimize_all
