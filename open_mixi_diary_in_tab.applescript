@@ -1,4 +1,4 @@
-property MAX_VISIT : 10
+property MAX_VISIT : 20
 property START_POSITION : 30
 property END_POSITION : 150
 property VISITED_COLOR : "rgb(153, 102, 153)"
@@ -37,7 +37,7 @@ tell application "Safari"
 			set this_URL to (do JavaScript "document.links[" & (i as string) & "]" in document 1)
 			set visit to (do JavaScript "document.defaultView.getComputedStyle(document.links[" & (i as string) & "], null).getPropertyValue('color')" in document 1)
 			set i to i + 1
-			if visit ­ VISITED_COLOR then
+			if visit is not VISITED_COLOR then
 				if (text item 1 of the this_URL) = BASE_URL then
 					set the end of the target_links to this_URL
 					set c to c - 1

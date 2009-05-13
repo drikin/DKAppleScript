@@ -1,4 +1,4 @@
-property MAX_VISIT : 10
+property MAX_VISIT : 20
 property START_POSITION : 4
 property VISITED_COLOR : "rgb(102, 102, 102)"
 property SITE_URL : "http://61.194.39.44/~inu/link/koinu.shtml"
@@ -37,7 +37,7 @@ tell application "Safari"
 			set this_URL to (do JavaScript "document.links[" & (i as string) & "]" in document 1)
 			set visit to (do JavaScript "document.defaultView.getComputedStyle(document.links[" & (i as string) & "], null).getPropertyValue('color')" in document 1)
 			set i to i + 1
-			if visit ­ VISITED_COLOR then
+			if visit is not VISITED_COLOR then
 				-- specific InuLink: remove redirect link 
 				set AppleScript's text item delimiters to "?"
 				if (count text item of this_URL) > 2 then

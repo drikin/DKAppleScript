@@ -16,9 +16,9 @@ end tell
 on minimize_all(theApplication)
 	tell application theApplication to try
 		activate
-		tell application "System Events"
+		tell application "System Events" to try
 			keystroke "`" using {command down}
 			keystroke "m" using {command down, option down}
-		end tell
+		end try
 	end try
 end minimize_all
