@@ -21,7 +21,6 @@ end ParentPath
 -- start main routine here --
 global _browser
 set _browser to GetDefaultWebBrowser()
-set _browser to "Safari"
 
 set scpt_path to (path to me) as text
 set launch_script to ParentPath(scpt_path) & _browser & ".applescript"
